@@ -1,0 +1,24 @@
+[2026-06-16T15:12:56.944+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-06-16T15:12:57.009+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: mandera_batch_pipeline.generate_data manual__2026-06-16T15:12:56.021633+00:00 [queued]>
+[2026-06-16T15:12:57.021+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: mandera_batch_pipeline.generate_data manual__2026-06-16T15:12:56.021633+00:00 [queued]>
+[2026-06-16T15:12:57.021+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 2
+[2026-06-16T15:12:57.043+0000] {taskinstance.py:2327} INFO - Executing <Task(PythonOperator): generate_data> on 2026-06-16 15:12:56.021633+00:00
+[2026-06-16T15:12:57.052+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'mandera_batch_pipeline', 'generate_data', 'manual__2026-06-16T15:12:56.021633+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/mandera_pipeline.py', '--cfg-path', '/tmp/tmpb89524iu']
+[2026-06-16T15:12:57.055+0000] {standard_task_runner.py:91} INFO - Job 7: Subtask generate_data
+[2026-06-16T15:12:57.058+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=293) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-06-16T15:12:57.059+0000] {standard_task_runner.py:63} INFO - Started process 294 to run task
+[2026-06-16T15:12:57.127+0000] {task_command.py:426} INFO - Running <TaskInstance: mandera_batch_pipeline.generate_data manual__2026-06-16T15:12:56.021633+00:00 [running]> on host b91208fdc977
+[2026-06-16T15:12:57.316+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='mandera' AIRFLOW_CTX_DAG_ID='mandera_batch_pipeline' AIRFLOW_CTX_TASK_ID='generate_data' AIRFLOW_CTX_EXECUTION_DATE='2026-06-16T15:12:56.021633+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-16T15:12:56.021633+00:00'
+[2026-06-16T15:12:57.318+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-06-16T15:12:57.637+0000] {logging_mixin.py:188} INFO - Generating batch: BATCH_20260616_151257
+[2026-06-16T15:12:57.639+0000] {logging_mixin.py:188} INFO - Batch size: 100 records
+[2026-06-16T15:12:59.345+0000] {logging_mixin.py:188} INFO - Inserted 100 records into MongoDB
+[2026-06-16T15:12:59.348+0000] {logging_mixin.py:188} INFO - Database: mandera_db
+[2026-06-16T15:12:59.349+0000] {logging_mixin.py:188} INFO - Collection: transactions
+[2026-06-16T15:12:59.349+0000] {logging_mixin.py:188} INFO - Batch ID: BATCH_20260616_151257
+[2026-06-16T15:12:59.379+0000] {python.py:237} INFO - Done. Returned value was: BATCH_20260616_151257
+[2026-06-16T15:12:59.380+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-06-16T15:12:59.433+0000] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=mandera_batch_pipeline, task_id=generate_data, execution_date=20260616T151256, start_date=20260616T151257, end_date=20260616T151259
+[2026-06-16T15:12:59.503+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-06-16T15:12:59.558+0000] {taskinstance.py:3482} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-16T15:12:59.561+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

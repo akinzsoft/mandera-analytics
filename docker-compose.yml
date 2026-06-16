@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   postgres:
@@ -26,6 +24,39 @@ services:
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
+
+  airflow:
+    image: apache/airflow:2.9.0
+    container_name: mandera_airflow
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://mandera:mandera123@postgres:5432/mandera_db
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'true'
+      MONGO_URI: mongodb+srv://akinzsoft:cD7Ghc7p38EPbvlO@mandera-cluster.tqzpyhv.mongodb.net/?appName=mandera-cluster
+      MONGO_DB: mandera_db
+      MONGO_COLLECTION: transactions
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mandera_db
+      POSTGRES_USER: mandera
+      POSTGRES_PASSWORD: mandera123
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: mandera-raw
+      BATCH_SIZE: '100'
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./logs:/opt/airflow/logs
+    ports:
+      - "8080:8080"
+    command: bash -c "pip install faker pymongo boto3 psycopg2-binary python-dotenv pandas --quiet && airflow db init && airflow users create --username admin --password admin123 --firstname Admin --lastname User --role Admin --email admin@mandera.com && airflow webserver & airflow scheduler"
 
 volumes:
   postgres_data:
