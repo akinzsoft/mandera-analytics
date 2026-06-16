@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: mandera_postgres
+    environment:
+      POSTGRES_USER: mandera
+      POSTGRES_PASSWORD: mandera123
+      POSTGRES_DB: mandera_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    container_name: mandera_minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+volumes:
+  postgres_data:
+  minio_data:
